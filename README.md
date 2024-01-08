@@ -1,6 +1,6 @@
-# E-LEARN Web Application
+# E-LEARN Web Application for Institutions
 
-[E-LEARN GitHub Repository](https://github.com/enshikuku/e-learning)
+[E-LEARN GitHub Repository](https://github.com/enshikuku/e-learning-for-institutions)
 
 E-LEARN is a comprehensive web application designed for educational institutions, providing seamless management of learning resources, student information, and administrative tasks.
 
@@ -28,7 +28,7 @@ Ensure that Node.js and npm are installed on your machine before proceeding.
 Clone the repository and install the required dependencies.
 
 ```bash
-git clone https://github.com/enshikuku/e-learning
+git clone https://github.com/enshikuku/e-learning-for-institutions
 cd e-learning
 npm install
 ```
@@ -110,7 +110,7 @@ We welcome contributions to enhance and improve the project! To contribute, plea
 
 ### Bug Reports and Feature Requests
 
-If you encounter a bug or have a feature request, please open an issue on the [GitHub issue tracker](https://github.com/enshikuku/e-learning/issues). Before creating a new issue, check if a similar one already exists. When reporting a bug, provide a detailed description and steps to reproduce it.
+If you encounter a bug or have a feature request, please open an issue on the [GitHub issue tracker](https://github.com/enshikuku/e-learning-for-institutions/issues). Before creating a new issue, check if a similar one already exists. When reporting a bug, provide a detailed description and steps to reproduce it.
 
 ### Pull Requests
 
@@ -121,7 +121,7 @@ We encourage you to submit pull requests for bug fixes, improvements, or new fea
 3. Implement your changes and test thoroughly.
 4. Commit your changes: `git commit -m "Clear description of changes"`.
 5. Push your branch to your fork: `git push origin feature-name`.
-6. Open a pull request on the [GitHub repository](https://github.com/enshikuku/e-learning/pulls) with a clear title and description of your changes.
+6. Open a pull request on the [GitHub repository](https://github.com/enshikuku/e-learning-for-institutions/pulls) with a clear title and description of your changes.
 
 ### Coding Standards
 
