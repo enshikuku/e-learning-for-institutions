@@ -1,0 +1,16 @@
+<header class="container">
+    <a href="/"><h1 id="logo"><img src="/images/e_learning.png" alt=""> E-LEARN</h1></a>
+    <nav>
+        <% if(locals.isLogedIn && locals.sessionpin) { %>
+            <a href="/home"><img src="/images/home.png" alt=""> HOME</a>
+            <a href="/logout" id="logOut"><img src="/images/logout.png" alt=""> LOGOUT</a>
+            <a href="/manager"><img src="/images/manage.png" alt=""> Manage</a>
+        <% } else if(locals.isLogedIn) { %>
+            <a href="/home"><img src="/images/home.png" alt=""> HOME</a>
+            <a href="/logout" id="logOut"><img src="/images/logout.png" alt=""> LOGOUT</a>
+        <% } else { %>
+            <a href="/home"><img src="/images/home.png" alt=""> HOME</a>
+            <a href="/login"><img src="/images/login.png" alt=""> LOGIN</a>
+        <% } %>
+    </nav>
+</header>

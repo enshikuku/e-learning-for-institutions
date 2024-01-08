@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="learn" class="container">
+        <h1>Resources: <%= results.length %></h1>
+        <div id="learndiv">
+            <% results.forEach(result => { %>
+                <div class="learnUnits">
+                    <h3 class="learnTitle"><%= result.rsctitle %></h3>
+                    <p class="learnDefinition"><%= result.learndefinition %></p>
+                    <div class="learnUnitsMain">
+                        <div class="learnDocsMain">
+                            <embed src="/pdfuploads/<%= result.route %>" type="application/pdf" class="learnDocs"/>
+                            <a href="/viewpdf/<%= result.lr_id %>" class="btn41-43 btn-41">Click here to view</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+    <%- include('partials/footermain') %>
+<%- include('partials/footer') %>

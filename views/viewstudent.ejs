@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="adminviewstudent" class="container">
+        <div>
+            <h1>Total students: <%= results.length %></h1>
+            <% results.forEach(result => { %>
+                <div class="studentmain">
+                    <p class="studentidandname"><%= results.indexOf(result)+1 %>. ES/<%= result.s_id %>/<%= result.timestamp.toLocaleDateString("en-US", { year: "numeric" }).slice(-2) %> <%= result.name %></p>
+                    <div class="studentdetailedinformation">
+                        <div class="studentinfo"><img src="/images/imageuploads/<%= result.profilePic %>" alt="" class="pic"></div>
+                        <div class="studentinfo"><p class="email"><%= result.email %></p></div>
+                        <div class="studentinfo"><p><%= result.isactive %></p></div>
+                        <div class="studentinfo"><p><%= result.gender %></p></div>
+                        <div class="studentinfo">
+                            <p class="learn">
+                                <% if(result.learn >= 80) { %> 
+                                    Very Good &#x1F60A;
+                                <% } else if(result.learn >= 65) { %>
+                                    Good &#x1F603;
+                                <% } else if(result.learn >= 50) { %>
+                                    Average &#x1F616;
+                                <% } else if(result.learn >= 20) { %>
+                                    Below Average &#x1F612;
+                                <% } else { %>
+                                    Poor &#128544;
+                                <% } %>
+                            </p>
+                        </div>
+                        <div class="resourceInfo progress-container-manager studentinfo">
+                            <div class="progress-container">
+                                <div class="progress-label"><p>Progress: <%= result.learn %>%</p></div>
+                                <progress class="progress-bar" value="<%= result.learn %>" max="100"><%= result.learn %></progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>       
+    </main>
+<%- include('partials/footer') %>

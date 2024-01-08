@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="adminhome" class="container">
+        <h2><%= locals.tutor %>'s Tutor Hub:</h2> 
+        <p>Explore Students, Learning Resources and Discussions</p>
+        <div class="allcards">
+            <div class="cardsHolder">
+                <a href="/viewstudent" class="cardMain">
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1674150044/Images/students_ymxwed.jpg" class="card" alt=""> 
+                    <p><img src="/images/student.png" alt="" class="icon"> students</p>
+                </a>
+                <a href="/viewresource" class="cardMain">
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1674150045/Images/resources_tx00v4.jpg" class="card" alt="">
+                    <p><img src="/images/ebook.png" alt="" class="icon"> resources</p>
+                </a>
+                <a href="/viewremark" class="cardMain">
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1674150045/Images/remarks_c8ub3r.png" class="card" alt="">
+                    <p><img src="/images/remark.png" alt="" class="icon"> Remarks</p>
+                </a>
+                <a href="/chatroom" class="cardMain">
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1674152042/Images/InShot_20230119_210623467_pn1qdg.jpg" class="card" alt="">
+                    <p><img src="/images/chat.png" alt="" class="icon"> Chatroom</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footermain') %>
+<%- include('partials/footer') %>

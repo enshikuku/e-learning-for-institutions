@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="chatroom" class="container">
+        <div class="chats">
+            <button id="scroll-to-bottom-button"><img src="images/scroll.png" alt=""></button>
+
+            <% results.forEach(result => { %>
+                <div class="chatMain">
+                    <div class="userInfo">
+                        <% if(result.tutor === 'true') { %>
+                            <p class="nameId uiTitle">Tutor: <%= result.admin_name %></p>
+                        <% } else if(result.tutor === 'false') { %>
+                            <p class="nameId uiTitle"><%= result.student_name %></p>
+                        <% } %>
+                        <p class="time uiTitle"><%= result.created_at.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric" }) %></p>
+                    </div>
+                    <div class="message">
+                        <p class="messages"><%= result.chat %></p>
+                        <% if(admin) { %>
+                            <form action="/deactivatemessage/<%= result.c_id %>" method="post">
+                                <input type="submit" value="Delete message" id="deletemessage">
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+            <% if(admin) { %>
+                <form action="/deactivatechats" method="post">
+                    <input type="submit" value="Clear all chats">
+                </form>
+                <form action="/activatechats" method="post">
+                    <input type="submit" value="Retreive all chats">
+                </form>
+            <% } %>
+        </div>
+        <form action="/sendmessage" method="post" id="form">
+            <input type="hidden" name="id" value="<%= senderID %>">
+            <input type="text" name="message" id="" required>
+            <input type="submit" value="Send message">
+        </form>
+    </main>
+<%- include('partials/footer') %>

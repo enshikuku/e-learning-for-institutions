@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="adminviewremark" class="container">
+        <div>
+            <h1>Total remarks: <%= results.length %></h1>
+            
+            <% results.forEach(result => { %>
+                <div class="remarkMain">
+                    <div class="remarkHeading">
+                        <p class="remarkid"><%= results.indexOf(result)+1 %>. <%= result.name %>[ES/<%= result.s_id %>/<%= result.created_at.toLocaleDateString("en-US", { year: "numeric" }).slice(-2) %>]</p>
+                        <div class="handled">
+                            <p><b><%= (new Date(result.created_at)).toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric", hour12: true }) + ' ' + (new Date(result.created_at)).toLocaleDateString("en-US", { month: "numeric", day: "numeric", year: "numeric" }) %></b></p>
+                            <form action="/handle/<%= result.r_id %>" method="post">
+                                <input type="submit" value="clear">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="remarks">
+                        <div class="remarkInfo resources"><p><b>Resource:</b> <i class="resource"><%= result.rsctitle %></i></p></div>
+                        <div class="remarkInfo remark"><p><b>Remark: </b><%= result.remark %></p></div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+<%- include('partials/footer') %>

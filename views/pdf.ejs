@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="pdf" class="container">
+        <div class="pdfnav">
+            <a href="/learn" class="btn41-43 btn-41">Explore units</a>
+            <a href="/progress" class="btn41-43 btn-41">Monitor Your Progress</a>
+        </div>
+        <div id="pdfView">
+            <embed src="/pdfuploads/<%= resource.route %>" type="application/pdf"/>
+            <div>
+                <h1><%= resource.rsctitle %></h1>
+                <p><%= resource.learndefinition %></p>
+                <a href="/remark/<%= resource.lr_id %>" class="btn41-43 btn-41">Express your remarks</a>
+            </div>
+        </div>
+    </main>
+<%- include('partials/footer') %>

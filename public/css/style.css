@@ -1,0 +1,1130 @@
+@font-face {
+    font-family: Assistant;
+    src: url(Assistant-VariableFont_wght.ttf);
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Assistant;
+    scroll-behavior: smooth;
+}
+.container {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background-color: #F6CBB7;
+}  
+::-webkit-scrollbar-thumb {
+    background-color: #900020;
+    border-radius: 10px;
+}
+::-moz-scrollbar {
+    width: 12px;
+}
+::-moz-scrollbar-track {
+    background-color: #F6CBB7;
+}
+::-moz-scrollbar-thumb {
+    background-color: #900020;
+    border-radius: 10px;
+}
+::-ms-scrollbar {
+    width: 12px;
+}
+::-ms-scrollbar-track {
+    background-color: #F6CBB7;
+}
+::-ms-scrollbar-thumb {
+    background-color: #900020;
+    border-radius: 10px;
+}
+::selection {
+    background-color: #F6CBB7;
+}
+::-moz-selection {
+    background-color: #F6CBB7;
+    color: #fff;
+}
+input::selection, textarea::selection {
+    background-color: #F6CBB7;
+}
+header {
+    background-color: #CB857C;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    color: #900020;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+header h1:hover {
+    cursor: pointer;
+}
+header img {
+    height: 31px;
+}
+header nav {
+    display: flex;
+    gap: 8px;
+}
+header nav img {
+    height: 15px;
+}
+header a {
+    text-decoration: none;
+}
+header nav a {
+    color: #900020;
+    font-size: 17px;
+    padding: 2px;
+    border-bottom: 2px solid #900020;
+    border-left: 2px solid #900020;
+    border-top: .4px solid #900020;
+    border-right: .4px solid #900020;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    transition: .1s;
+}
+header nav a:hover {
+    transform: scale(1.05); 
+}
+#landing {
+    font-size: 22px;
+    text-align: center;
+}
+
+#landing .landingSing {
+    width: 100%;
+    min-width: 302px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#landing .landingSing .userpic, #landing .signInUp {
+    width: 100%;
+    min-width: 300px;
+}
+#landing .signInUp a {
+    text-decoration: none;
+    width: 48%;
+    font-size: 17px;
+    padding: 5px;
+    background-color: #F6CBB7;
+    color: #900020;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}
+#landing #landingMain .landingMainDiv {
+    min-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(155, 0, 32, 0.9);
+    width: 30%;
+}
+#landing #landingMain .landingMainDiv .title {
+    width: 100%;
+    background-color: #F6CBB7;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 15px 15px 0 0;
+}
+#landing #landingMain {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    gap: 20px;
+}
+#landing .signInUp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 15px 15px;
+}
+#landing .signInUp .left {
+    border-radius: 0 15px 0 15px;
+}
+#landing .signInUp .right {
+    border-radius: 15px 0 15px 0;
+}
+#landing .signInUpIMG {
+    width: 17px;
+}
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 30px 0 0 0;
+    margin-top: 30px;
+    text-align: center
+}
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+footer .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 0 15px;
+}
+footer h3 {
+    font-size: 20px;
+    margin: 20px 0;
+    color: #616161;
+}
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+footer li {
+    margin-bottom: 10px;
+}
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer .copyright {
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+#login-form .signInUpIMG, #signup .signInUpIMG, #adminsignup .signInUpIMG, #adminlogin .signInUpIMG, #superadminlogin .signInUpIMG{
+    width: 32px;
+}
+#login-form, #signup, #adminsignup, #adminlogin, #superadminlogin, #resetpassword, #verificationcode, #newpassword {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #900020;
+}
+#login-form form, #signup form, #adminsignup form, #adminlogin form, #superadminlogin form, #resetpassword form, #verificationcode form, #newpassword form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #9b0020e6;
+}
+#login-form input, #signup input, #adminsignup input, #adminlogin input, #superadminlogin input, #resetpassword input, #verificationcode input, #newpassword input {
+    font-size: 25px;
+    border: 2px solid #9b0020e6;
+    border-radius: 10px;
+    padding: 8px;
+}
+.form-btwn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#login-form input[type='submit'], #signup input[type='submit'], #adminsignup input[type='submit'], #adminlogin input[type='submit'], #superadminlogin input[type='submit'], #resetpassword input[type='submit'], #verificationcode input[type='submit'], #newpassword input[type='submit'] {
+    background-color: #900020;
+    border: 1px solid #900020;
+    color: #F6CBB7;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: .4s;
+}
+#login-form input[type='submit']:hover, #signup input[type='submit']:hover, #adminsignup input[type='submit']:hover, #adminlogin input[type='submit']:hover, #superadminlogin input[type='submit']:hover, #resetpassword input[type='submit']:hover, #verificationcode input[type='submit']:hover, #newpassword input[type='submit']:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: .4s;
+}
+#login-form h1, #signup h1, #adminsignup h1, #adminlogin h1, #superadminlogin h1 {
+    color: #900020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 3px;
+    gap: 3px;
+}
+.error {
+    background-color: #ff0000;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+    font-size: 15px;
+}
+#home p {
+    font-size: 22px;
+}
+.cardsHolder {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0;
+}
+.cardsHolder .cardMain .card {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+}
+.cardsHolder .cardMain {
+    border-radius: 25px 25px 15px 15px;
+    width: 20%;
+    min-width: 250px;
+    box-shadow: 0 0 10px #ff7a95e6;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 400;
+    color: #5f0015;
+    background-color: #F6CBB7;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.cardsHolder .cardMain:hover {
+    box-shadow: 0 0 25px #9b0020e6;
+    transform: scale(1.08); 
+}
+.cardsHolder .cardMain .icon {
+    width: 26px;
+}
+.cardsHolder .cardMain p {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+.profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resourceactive {
+    background-color: #90ee90;
+    border-radius: 15px 15px 0 0;
+}
+
+.resourceinactive {
+    background-color: #f08080;
+    border-radius: 15px 15px 0 0;
+}
+
+.keyactive {
+    background-color: #90ee90;
+    border-radius: 0 0 15px 15px;
+}
+
+.keyinactive {
+    background-color: #f08080;
+    border-radius: 0 0 15px 15px;
+}
+
+table {
+    width: fit-content;
+}
+
+th {
+    border: 1px solid #900020;
+    border-radius: 15px 15px 0 0;
+    text-align: left;
+    padding: 0 6px;
+}
+
+.manhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 30px;
+    border-bottom: 1px double #560013;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.profile-picture {
+    max-width: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.progress-container {
+    width: 100%;
+}
+
+.progress-container-manager {
+    position: relative;
+    width: 100%;
+
+}
+
+.progress-bar {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    display: inline-block;
+    width: fit-content;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.admin-remark {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.allcards {
+    font-size: 22px;
+    text-align: center;
+    cursor: default;
+}
+.btn41-43 img {
+    height: 16px;
+} 
+.btn41-43 {
+    padding: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    width: fit-content;
+    background: transparent;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    outline: none !important;
+    cursor: pointer;
+    transition: all 0.6s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:  #F6CBB7;
+}
+.btn-41 {
+    border: 2px solid #8f001f;
+    border-radius: 15px;
+    z-index: 1;
+    color: #8f001f;
+}
+.btn-41:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    direction: rtl;
+    z-index: -1;
+    background: #CB857C;
+    transition: all 0.3s ease;
+    border-radius: 14px;
+}
+.btn-41:hover {
+    color: #560013;
+    border: 2px solid #560013;
+    transform: scale(1.04);
+
+} 
+.btn-41:hover:after {
+    left: auto;
+    right: 0;
+    width: 100%;
+} 
+.btn-41:active {
+    top: 2px;
+}
+.learnDocsMain {
+    display: flex;
+    width: 100%;
+    flex-direction: column-reverse;
+    min-width: 220px;
+    gap: 10px;
+    background-color: #8f001f80;
+    padding: 5%;
+    border-radius: 10px;
+}
+.learnDocsMain .learnDocs {
+    width: 100%;
+    height: 200px;
+    border: none;
+    background: none;
+}
+.learnUnitsMain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.learnUnits {
+    background-color: #F6CBB799;
+    box-shadow: 0 0 10px #900020EF;
+    padding: 20px;
+    width: 40%;
+    min-width: 380px;
+    max-width: 380px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+.learnUnits:hover {
+    transform: scale(1.06); 
+    box-shadow: 0 0 20px #6e0018ef;
+}
+#learn #learndiv {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: left;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+}
+#pdfView {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#pdfView embed {
+    width: 60%;
+}
+#pdfView div {
+    width: 30%;
+    padding: 15px;
+    font-size: 22px;
+}
+.pdfnav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    width: 100%;
+    padding: 5px 20px;
+    margin: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#pdfView div h1 {
+    text-transform: uppercase;
+}
+#pdfView embed, #pdfView div{
+    min-width: 280px;
+    height: 100%;
+}
+#remark {
+    width: 100%;
+}
+#remark form {
+    width: 100%;
+    font-size: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+}
+#remark form div {
+    width: 60%;
+    min-width: 280px;
+}
+#remark form div textarea {
+    width: 100%;
+    font-size: 22px;
+    border: 2px solid #CB857C;
+    border-radius: 10px;
+    padding: 5px;
+}
+#remark form div #remarkText {
+    height: 30vh;
+}
+#remark form input[type='submit'] {
+    background-color: #900020;
+    border: 1px solid #900020;
+    color: #F6CBB7;
+    font-weight: bold;
+    padding: 3px;
+    letter-spacing: 2px;
+    width: fit-content;
+    border-radius: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#editProfile, #editProfile form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#editProfile form .form-input {
+    width: 60%;
+    font-size: 22px;
+    display: flex;
+    text-align: left;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #CB857C;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(144, 0, 32, 0.5);
+    padding: 10px;
+}
+#editProfile form .form-input label {
+    display: block;
+}
+#editProfile form .form-input input, #editProfile form .form-input select {
+    width: 100%;
+    min-width: 280px;
+    font-size: 22px;
+    background: #ffede4;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 2px double #900020;
+}
+#editProfile form input[type='submit'] {
+    background-color: #005b00;
+    border: 1px solid #005b00;
+    padding: 3px 10px;
+    color: #ffede4;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    font-size: 23px;
+    transition: .4s;
+}
+#editProfile form a {
+    background-color: red;
+    border: 1px solid red;
+    padding: 3px 10px;
+    text-decoration: none;
+    color: #ffede4;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    font-size: 23px;
+    transition: .4s;
+}
+#chatroom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 80vh;
+}
+#chatroom .chats {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+#chatroom .chats .chatMain {
+    width: 60%;
+    min-width: 300px;
+    background-color: #F6CBB7;
+    border: 1px solid #F6CBB7;
+    border-radius: 10px 10px 20px 20px;
+}
+#chatroom .chats .chatMain .userInfo .uiTitle {
+    padding: 0 10px;
+    width: fit-content;
+    flex-wrap: wrap;
+}
+#chatroom .chats .chatMain .userInfo {
+    display: flex;
+    justify-content: space-between;
+    color: #900020;
+    border-bottom: 2px dotted #900020;
+}
+#chatroom .chats .chatMain .messages {
+    font-size: 22px;
+    padding: 10px;
+}
+#chatroom .chats .chatMain .message {
+    font-size: 22px;
+    padding: 8px;
+}
+#chatroom #form {
+    width: 100%;
+    min-width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+#chatroom #form input {
+    width: 60%;
+    min-width: 300px;
+    font-size: 20px;
+    border: 2px double #5f0015;
+    border-radius: 10px;
+    padding: 1px 5px;
+}
+#chatroom #form input[type="submit"] {
+    color: #F6CBB7;
+    background-color: #5f0015;
+    text-transform: capitalize;
+    cursor: pointer;
+    width: fit-content;
+
+}
+#chatroom form input[type="submit"] {
+    color: #F6CBB7;
+    background-color: #d40000;
+    letter-spacing: 0;
+    border: #900020;
+    border-radius: 10px;
+    padding: 2px 5px;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-size: 15px;
+    width: fit-content;
+}
+#chatroom form #deletemessage {
+    color: #900020;
+    background-color: #F6CBB7;
+    letter-spacing: 0;
+    border: 1px solid #900020;
+    border-radius: 20px;
+    font-size: 15px;
+    padding: 2px 8px;
+    text-transform: capitalize;
+    cursor: pointer;
+    width: fit-content;
+}
+#adminhome {
+    font-size: 20px;
+}
+#adminviewstudent .studentdetailedinformation {
+    padding: 10px;
+    display: none;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 15px 15px;
+    border-right: 2px solid #900020;
+    border-bottom: 2px solid #900020;
+    border-left: 2px solid #900020;
+}
+#adminviewstudent .studentmain {
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+#adminviewstudent .studentidandname {
+    border-radius: 15px;
+    border: 2px double #900020;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    word-spacing: 4px;
+    border-radius: -10px;
+    font-size: 20px;
+    color: #5f0015;
+    font-weight: bold;
+    padding: 5px 20px;
+} 
+#adminviewstudent .studentdetailedinformation .pic {
+    width: 100px;
+    background-color: #F6CBB7;
+    border-radius: 50%;
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(144, 0, 32, 0.5);
+}
+#adminviewstudent .studentdetailedinformation .studentinfo {
+    /* width: 20%; */
+    font-size: 22px;
+    text-transform: capitalize;
+    min-width: fit-content;
+}
+#adminviewstudent .studentdetailedinformation .studentinfo .email {
+    text-transform: lowercase;
+}
+#adminviewremark .remarkMain, #adminviewresource .resourcesMain {
+    border: 2px solid #900020;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+#adminviewresource .resourceid {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 300px;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 2px solid #900020;
+    text-transform: uppercase;
+    color: #2B0009;
+    padding: 2px 5px;
+    font-size: 22px;
+}
+#adminviewresource .resourceid .edit-delete, #adminviewresource .resourceid .activate {
+    width: fit-content;
+    padding: 0 5px;
+    font-size: 19px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#adminviewresource .resourceid .edit-delete a {
+    text-decoration: none;
+    background-color: #005b00;
+    text-transform: capitalize;
+    color: #ffede4;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+#adminviewresource .resourceid .edit-delete input {
+    font-size: 19px;
+    text-transform: capitalize;
+    background-color: red;
+    border: 1px solid red;
+    color: #ffede4;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+.restorersc {
+    font-size: 19px;
+    text-transform: capitalize;
+    background-color: #005b00;
+    border: 1px solid #005b00;
+    color: #ffede4;
+    padding: 2px 5px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+
+#adminviewresource .resourceid .activate .activateuser {
+    font-size: 19px;
+    text-transform: capitalize;
+    background-color: #005b00;
+    border: 1px solid #005b00;
+    color: #ffede4;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+#adminviewresource .resourceid .activate .deactivateuser {
+    font-size: 19px;
+    text-transform: capitalize;
+    background-color: #900020;
+    border: 1px solid #900020;
+    color: #ffede4;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+#adminviewremark .remarkMain form input {
+    font-size: 19px;
+    text-transform: capitalize;
+    background-color: #005b00;
+    border: #005b00;
+    padding: 2px 5px;
+    color: #ffede4;
+    border-radius: 10px;
+}
+#adminviewremark .remarkMain .remarkHeading .remarkid {
+    min-width: 250px;
+}
+#adminviewremark .remarkMain .handled {
+    display: flex;
+    min-width: 250px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#adminviewremark .remarkMain .handled form {
+    min-width: fit-content;
+}
+#adminviewremark .remarkMain .handled p {
+    min-width: fit-content;
+    font-size: 17px;
+    color: #5f0015;
+}
+#adminviewremark .remarkHeading {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 300px;
+    justify-content: space-between;
+    border-bottom: 2px solid #900020;
+    text-transform: uppercase;
+    color: #5f0015;
+    padding: 2px 5px;
+    font-size: 22px;
+}
+#adminviewremark .remarks, #adminviewresource .resources {
+    display: flex;
+    min-height: 60px;
+    flex-wrap: wrap;
+}
+#adminviewremark div .remarkInfo, #adminviewresource .resourceInfo {
+    font-size: 22px;
+    min-width: 280px;
+    padding: 5px;
+}
+#adminviewremark .remarks .remark {
+    width: 50%;
+}
+#adminviewremark .remarks .resources {
+    width: 45%;
+}
+#adminviewremark div .remarkInfo .resource {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+#adminviewresource #rscmininav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 5px 10px;
+}
+#adminviewresource #rscmininav #editmininav {
+    width: fit-content;
+}
+#addresource, #addresource form, #editresource, #editresource form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#addresource form .form-input, #editresource form .form-input {
+    width: 100%;
+    font-size: 22px;
+    display: flex;
+    text-align: left;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #CB857C;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(144, 0, 32, 0.5);
+    padding: 10px;
+}
+#addresource form .form-input input, #editresource form .form-input input, #addresource form .form-input textarea, #editresource form .form-input textarea {
+    width: 100%;
+    font-size: 20px;
+    background: #ffede4;
+    border: 2px double #900020;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+#addresource form input[type='submit'], #editresource form input[type='submit'] {
+    background-color: #005b00;
+    border: 1px solid #005b00;
+    padding: 3px 10px;
+    color: #ffede4;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    font-size: 23px;
+    transition: .4s;
+}
+#addresource form a, #editresource form a {
+    background-color: red;
+    border: 1px solid red;
+    padding: 3px 10px;
+    text-decoration: none;
+    color: #ffede4;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    font-size: 23px;
+    transition: .4s;
+}
+#pagenotfound {
+    text-align: center;
+    font-size: 15px;
+}
+#pagenotfound img {
+    width: 300px;
+}
+.loader{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    background-color: #CB857C;
+}
+.spinner{
+    width: 80px;
+    height: 80px;
+    border: 10px solid #F6CBB7;
+    border-radius: 50%;
+    background-color: #CB857C;
+    border-top: 10px solid #900020;
+    animation: spin 2s linear infinite;
+}
+#scroll-to-bottom-button img {
+    width: 40px;
+    height: 40px;
+}
+#scroll-to-bottom-button {
+    background: none;
+    border: 2px solid #900020;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 50px;
+    right: 5px;
+}
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }    
+}
+#manager .introduction {
+    font-size: 22px;
+}
+.terms_privacy_conduct {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+.terms_privacy_conduct h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+.terms_privacy_conduct h2, .terms_privacy_conduct strong {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.terms_privacy_conduct p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.terms_privacy_conduct ol, .terms_privacy_conduct ul {
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+.terms_privacy_conduct strong {
+    font-weight: bold;
+}
+.terms_privacy_conduct li {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+.terms_privacy_conduct a {
+    color: #560013;
+    text-decoration: underline;
+}
+@media only screen and (max-width: 730px) {
+    .container {
+        padding: 5px 3%;
+    }
+    header h1 {
+        font-size: 25px;
+    }
+    header img {
+        width: 26px;
+    }
+    header nav a {
+        font-size: 13px;
+    }
+    header nav img {
+        width: 13px;
+    }
+    #editProfile form .form-input, #addresource form .form-input {
+        width: 100%;
+        flex-direction: column;
+    }
+    #pdfView embed {
+        height: 60%;
+        width: 100%;
+    }
+    #pdfView div {
+        height: fit-content;
+        width: 100%;
+    }
+    #remark form div{
+        width: 100%;
+    }
+    #adminviewstudent .student {
+        gap: 10px;
+    }
+    .learnUnits {
+        width: 100%;
+    }
+    footer .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

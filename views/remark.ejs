@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="remark" class="container">
+        <form action="/remark/<%= lr_id %>/<%= studentID %>" method="post">
+            <h1>Remarks</h1>
+            <p><i>Your remarks will be highly appreciated and benefitial to the development of this tool</i></p>
+            <div>
+                <input type="hidden" name="rsctitle" value="<%= results.rsctitle %>">
+                <label for="">What are your thoughts about <%= results.rsctitle %>?</label>
+                <textarea name="remark" id="remarkText" cols="30" rows="10" placeholder="Your message ..." required autocomplete="off"></textarea>
+            </div>
+            <input type="submit" value="Send Remark">
+        </form>        
+    </main>
+<%- include('partials/footer') %>

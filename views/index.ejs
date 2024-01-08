@@ -1,0 +1,31 @@
+<%- include('partials/header')%>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav')%>
+    <main class="container" id="landing">
+        <h1>E-LEARN</h1>
+        <P>Are you a student? Searching for ad-free materials to study online? Look no further! This incredible free tool will not only assist you in learning but also enable you to track your progress consistently. It's user-friendly, packed with abundant resources, and exceptionally easy to navigate. <br> Calling all teachers! We have an exclusive section just for you. Here, you can effortlessly upload resources and effectively monitor your students' performance.</P>
+        <div id="landingMain">
+            <div class="landingMainDiv">
+                <div class="landingSing">
+                    <p class="title">STUDENT</p>
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/v1673697544/Images/elearning_srrn9y.png" class="userpic" alt="">
+                    <span class="signInUp">
+                        <a href="/signup" class="left"><img src="/images/add-user.png" alt="" class="signInUpIMG">SIGNUP</a>
+                        <a href="/login" class="right"><img src="/images/login.png" alt="" class="signInUpIMG">signIN</a>
+                    </span>
+                </div>
+            </div>
+            <div class="landingMainDiv">
+                <div class="landingSing">
+                    <p class="title">TUTOR</p>
+                    <img src="https://res.cloudinary.com/dlkqilyi0/image/upload/v1673698143/Images/admin_main_ov15pf.jpg" class="userpic" alt="">
+                    <span class="signInUp">
+                        <a href="/adminsignup" class="left"><img src="/images/login.png" alt="" class="signInUpIMG">tutor signup</a>
+                        <a href="/adminlogin" class="right"><img src="/images/add-user.png" alt="" class="signInUpIMG">tutor signin</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footermain') %>
+<%- include('partials/footer')%>
