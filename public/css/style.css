@@ -237,7 +237,7 @@ footer .copyright {
     border-radius: 15px;
     box-shadow: 0 0 15px #9b0020e6;
 }
-#login-form input, #signup input, #adminsignup input, #adminlogin input, #superadminlogin input, #resetpassword input, #verificationcode input, #newpassword input {
+#login-form input, #signup input, #signup textarea, #adminsignup input, #adminlogin input, #superadminlogin input, #resetpassword input, #verificationcode input, #newpassword input {
     font-size: 25px;
     border: 2px solid #9b0020e6;
     border-radius: 10px;
@@ -695,6 +695,7 @@ th {
     font-size: 23px;
     transition: .4s;
 }
+
 #chatroom {
     display: flex;
     flex-direction: column;
@@ -702,6 +703,7 @@ th {
     width: 100%;
     min-height: 80vh;
 }
+
 #chatroom .chats {
     min-height: 60vh;
     display: flex;
@@ -709,6 +711,7 @@ th {
     gap: 20px;
     padding: 20px;
 }
+
 #chatroom .chats .chatMain {
     width: 60%;
     min-width: 300px;
@@ -716,35 +719,45 @@ th {
     border: 1px solid #F6CBB7;
     border-radius: 10px 10px 20px 20px;
 }
+
 #chatroom .chats .chatMain .userInfo .uiTitle {
     padding: 0 10px;
     width: fit-content;
     flex-wrap: wrap;
 }
+
 #chatroom .chats .chatMain .userInfo {
     display: flex;
     justify-content: space-between;
     color: #900020;
     border-bottom: 2px dotted #900020;
 }
+
 #chatroom .chats .chatMain .messages {
     font-size: 22px;
     padding: 10px;
 }
+
 #chatroom .chats .chatMain .message {
     font-size: 22px;
     padding: 8px;
 }
+
 #chatroom #form {
     width: 100%;
     min-width: 300px;
     display: flex;
     flex-wrap: wrap;
-    padding: 20px;
     gap: 20px;
-    justify-content: space-between;
+    justify-content: left;
+    padding: 25px 20px;
     align-items: center;
+    background-color: #F6CBB7;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
 }
+
 #chatroom #form input {
     width: 60%;
     min-width: 300px;
@@ -753,14 +766,19 @@ th {
     border-radius: 10px;
     padding: 1px 5px;
 }
+
 #chatroom #form input[type="submit"] {
     color: #F6CBB7;
     background-color: #5f0015;
     text-transform: capitalize;
     cursor: pointer;
     width: fit-content;
-
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
 }
+
 #chatroom form input[type="submit"] {
     color: #F6CBB7;
     background-color: #d40000;
@@ -773,6 +791,7 @@ th {
     font-size: 15px;
     width: fit-content;
 }
+
 #chatroom form #deletemessage {
     color: #900020;
     background-color: #F6CBB7;
@@ -785,6 +804,8 @@ th {
     cursor: pointer;
     width: fit-content;
 }
+
+
 #adminhome {
     font-size: 20px;
 }
@@ -1065,23 +1086,6 @@ th {
     background-color: #CB857C;
     border-top: 10px solid #900020;
     animation: spin 2s linear infinite;
-}
-#scroll-to-bottom-button img {
-    width: 40px;
-    height: 40px;
-}
-#scroll-to-bottom-button {
-    background: none;
-    border: 2px solid #900020;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: fixed;
-    bottom: 50px;
-    right: 5px;
 }
 @keyframes spin {
     0%{
