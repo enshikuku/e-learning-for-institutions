@@ -130,6 +130,22 @@ CREATE TABLE remarks_table (
 
 This SQL code creates a table named `remarks_table` with fields like `r_id`, `lr_id`, `s_id`, `remark`, `created_at`, `isactive`, and `institution_id`. The `r_id` is set as the primary key, and there are foreign key references to the `learningresources`, `e_student`, and `institution` tables.
 
+### Table: message
+
+```sql
+CREATE TABLE message (
+    messageid INT AUTO_INCREMENT,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    created_at TIMESTAMP,
+    message LONGTEXT,
+    PRIMARY KEY (messageid)
+);
+```
+
+This SQL code creates a table named `message`.
+
+
 ## Generation of sample data for tables e_student and e_admininfo
 
 - [Random Student SQL Query](https://enshikuku.github.io/random_student_SQLquery/)
