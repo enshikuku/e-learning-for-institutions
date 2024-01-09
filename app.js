@@ -526,7 +526,7 @@ app.post('/editProfile/:s_id', upload1.single('profilePic'), (req, res) => {
 
 // Render chatroom
 app.get('/chatroom', (req, res) => {
-    let sql = "SELECT chatroom.*, e_student.name AS student_name, e_admininfo.name AS admin_name FROM chatroom LEFT JOIN e_student ON chatroom.s_id = e_student.s_id LEFT JOIN e_admininfo ON chatroom.a_id = e_admininfo.a_id WHERE  chatroom.isactive = 'active' AND chatroom.institution_id = ?"
+    let sql = "SELECT chatroom.*, e_student.name AS student_name, e_admininfo.name AS admin_name FROM chatroom LEFT JOIN e_student ON chatroom.s_id = e_student.s_id LEFT JOIN e_admininfo ON chatroom.a_id = e_admininfo.a_id WHERE  chatroom.isactive = 'active' AND chatroom.institution_id = ? ORDER BY created_at DESC"
     if (res.locals.sessionpin) {
         connection.query(
             sql,
@@ -1429,6 +1429,44 @@ app.post('/login-institution', (req, res) => {
             res.redirect('/my-institution')
         }
     )
+})
+
+app.get('/contact', (req, res) => {
+    const contact = {
+        name: '',
+        email: '',
+        message: ''
+    }
+    res.render('contact', {contact: contact})
+})
+
+app.post('/contact', (req, res) => {
+    const contact = {
+        name: req.body.name,
+        email: req.body.email,
+        message: req.body.message
+    }
+    let sql = 'INSERT INTO message (name, email, message) VALUES (?, ?, ?)'
+    connection.query(
+        sql,
+        [
+            contact.name,
+            contact.email,
+            contact.message
+        ],
+        (error, results) => {
+            if (error) {
+                console.error('Error creating contact:', error)
+                res.status(500).send('Error creating contact')
+            } else {
+                res.redirect('/message-recieved')
+            }
+        }
+    )
+})
+
+app.get('/message-recieved', (req, res) => {
+    res.render('message-recieved')
 })
 
 app.get('/terms', (req, res) => {
