@@ -689,93 +689,100 @@ app.post('/adminsignup', (req, res) => {
         confirmPassword: req.body.confirmPassword,
         pin: req.body.adminPin,
     }
-    if (admin.pin === req.session.tutorpin) {
-        if (admin.password === admin.confirmPassword) {
-            connection.query(
-                'SELECT * FROM e_adminInfo WHERE email = ?',
-                [admin.email],
-                (error, results) => {
-                    if (error) {
-                        console.error('Error checking existing admin account:', error)
-                        res.status(500).send('Error checking existing admin account')
-                    } else if (results.length > 0) {
-                        let message = 'Sorry! You already have an account with that Email'
-                        admin.email = ''
-                        console.error('Duplicate admin account. Rendering adminsignup page with error message')
-                        res.render('adminsignup', { error: true, message: message, admin: admin })
-                    } else {
-                        // check if institution is existing
-                        let sql = 'SELECT * FROM institution WHERE institution_id = ?'
-                        connection.query(sql, [admin.institution], (error, results) => {
-                            if (error) {
-                                console.error('Error checking if institution exists:', error)
-                                res.status(500).render('error', { error: 'Error checking if institution exists' })
-                            } else {
-                                if (results.length > 0) {
-                                    // check if institution is active
-                                    let sql = 'SELECT * FROM institution WHERE institution_id = ? AND isactive = ?'
-                                    connection.query(sql, [admin.institution, 'active'], (error, results) => {
-                                        if (error) {
-                                            console.error('Error checking if institution is active:', error)
-                                            res.status(500).render('error', { error: 'Error checking if institution is active' })
-                                        } else {
-                                            if (results.length > 0) {
-                                                // Create account
-                                                bcrypt.hash(admin.password, 10, (hashError, hash) => {
-                                                    if (hashError) {
-                                                        console.error('Error hashing password:', hashError)
-                                                        res.status(500).send('Error hashing password')
-                                                    } else {
-                                                        connection.query(
-                                                            'INSERT INTO e_adminInfo (name, email, password, isactive, institution_id) VALUES (?,?,?,?,?)',
-                                                            [
-                                                                admin.name,
-                                                                admin.email,
-                                                                hash,
-                                                                'active',
-                                                                admin.institution
-                                                            ],
-                                                            (insertError, insertResults) => {
-                                                                if (insertError) {
-                                                                    console.error('Error creating admin account:', insertError)
-                                                                    res.status(500).send('Error creating admin account')
-                                                                } else {
-                                                                    res.redirect('/adminlogin')
-                                                                }
-                                                            }
-                                                        )
-                                                    }
-                                                })
-                                            } else {
-                                                let message = 'Your school is inactive! please contact your adminstrator'
-                                                console.error('Inactive institution. Rendering adminsignup page with error message')
-                                                res.render('adminsignup', { error: true, message: message, admin: admin })
-                                            }
-                                        }
-                                    })
-                                } else {
-                                    let message = 'We do not have that institution id! please contact your adminstrator'
-                                    console.error('We do not have that institution id. Rendering adminsignup page with error message')
-                                    res.render('adminsignup', { error: true, message: message, admin: admin })
-                                }
-                            }
-                        })
-                    }
-                }
-            )
+    let sql = 'SELECT * FROM institution WHERE institution_id = ?'
+    connection.query(sql, [admin.institution], (error, results) => {
+        if (error) {
+            console.error('Error fetching institutions:', error)
         } else {
-            let message = 'Passwords do not match!'
-            admin.password = ''
-            admin.confirmPassword = ''
-            console.error('Password mismatch. Rendering adminsignup page with error message')
-            res.render('adminsignup', { error: true, message: message, admin: admin })
+            if (admin.pin === results[0].adminpin) {
+                if (admin.password === admin.confirmPassword) {
+                    connection.query(
+                        'SELECT * FROM e_adminInfo WHERE email = ?',
+                        [admin.email],
+                        (error, results) => {
+                            if (error) {
+                                console.error('Error checking existing admin account:', error)
+                                res.status(500).send('Error checking existing admin account')
+                            } else if (results.length > 0) {
+                                let message = 'Sorry! You already have an account with that Email'
+                                admin.email = ''
+                                console.error('Duplicate admin account. Rendering adminsignup page with error message')
+                                res.render('adminsignup', { error: true, message: message, admin: admin })
+                            } else {
+                                // check if institution is existing
+                                let sql = 'SELECT * FROM institution WHERE institution_id = ?'
+                                connection.query(sql, [admin.institution], (error, results) => {
+                                    if (error) {
+                                        console.error('Error checking if institution exists:', error)
+                                        res.status(500).render('error', { error: 'Error checking if institution exists' })
+                                    } else {
+                                        if (results.length > 0) {
+                                            // check if institution is active
+                                            let sql = 'SELECT * FROM institution WHERE institution_id = ? AND isactive = ?'
+                                            connection.query(sql, [admin.institution, 'active'], (error, results) => {
+                                                if (error) {
+                                                    console.error('Error checking if institution is active:', error)
+                                                    res.status(500).render('error', { error: 'Error checking if institution is active' })
+                                                } else {
+                                                    if (results.length > 0) {
+                                                        // Create account
+                                                        bcrypt.hash(admin.password, 10, (hashError, hash) => {
+                                                            if (hashError) {
+                                                                console.error('Error hashing password:', hashError)
+                                                                res.status(500).send('Error hashing password')
+                                                            } else {
+                                                                connection.query(
+                                                                    'INSERT INTO e_adminInfo (name, email, password, isactive, institution_id) VALUES (?,?,?,?,?)',
+                                                                    [
+                                                                        admin.name,
+                                                                        admin.email,
+                                                                        hash,
+                                                                        'active',
+                                                                        admin.institution
+                                                                    ],
+                                                                    (insertError, insertResults) => {
+                                                                        if (insertError) {
+                                                                            console.error('Error creating admin account:', insertError)
+                                                                            res.status(500).send('Error creating admin account')
+                                                                        } else {
+                                                                            res.redirect('/adminlogin')
+                                                                        }
+                                                                    }
+                                                                )
+                                                            }
+                                                        })
+                                                    } else {
+                                                        let message = 'Your school is inactive! please contact your adminstrator'
+                                                        console.error('Inactive institution. Rendering adminsignup page with error message')
+                                                        res.render('adminsignup', { error: true, message: message, admin: admin })
+                                                    }
+                                                }
+                                            })
+                                        } else {
+                                            let message = 'We do not have that institution id! please contact your adminstrator'
+                                            console.error('We do not have that institution id. Rendering adminsignup page with error message')
+                                            res.render('adminsignup', { error: true, message: message, admin: admin })
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    )
+                } else {
+                    let message = 'Passwords do not match!'
+                    admin.password = ''
+                    admin.confirmPassword = ''
+                    console.error('Password mismatch. Rendering adminsignup page with error message')
+                    res.render('adminsignup', { error: true, message: message, admin: admin })
+                }
+            } else {
+                let message = 'Incorrect Admin pin'
+                admin.pin = ''
+                console.error('Incorrect Admin pin. Rendering adminsignup page with error message')
+                res.render('adminsignup', { error: true, message: message, admin: admin })
+            }
         }
-    } else {
-        let message = 'Incorrect Admin pin'
-        admin.pin = ''
-        console.error('Incorrect Admin pin. Rendering adminsignup page with error message')
-        res.render('adminsignup', { error: true, message: message, admin: admin })
-    }
+    })
 })
 
 
