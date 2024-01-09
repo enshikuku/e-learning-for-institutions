@@ -87,8 +87,7 @@ app.use((req, res, next) => {
     next()
 })
 
-let adminAuthenticationPin = process.env.ADMIN_AUTH_PIN
-let superAdminAuthPin = process.env.SUPER_ADMIN_AUTH_PIN
+
 
 // Landing page
 app.get('/', (req, res) => {
@@ -308,8 +307,8 @@ app.get('/viewpdf/:resourceId', (req, res) => {
 
     if (res.locals.isLogedIn) {
         connection.query(
-            'SELECT learn FROM e_student WHERE s_id = ?',
-            [req.session.userID],
+            'SELECT learn FROM e_student WHERE s_id = ? AND institution_id =?',
+            [req.session.userID, req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error updating learn count for student:', error)
@@ -325,8 +324,8 @@ app.get('/viewpdf/:resourceId', (req, res) => {
                                 res.status(500).render('error', { error: 'Error updating opened count for learning resource' })
                             } else {
                                 connection.query(
-                                    'SELECT * FROM learningresources WHERE lr_id = ?',
-                                    [resourceId],
+                                    'SELECT * FROM learningresources WHERE lr_id = ? AND institution_id = ?',
+                                    [resourceId, req.session.institution],
                                     (error, selectResults) => {
                                         if (error) {
                                             console.error('Error fetching learning resource for PDF view:', error)
@@ -341,8 +340,8 @@ app.get('/viewpdf/:resourceId', (req, res) => {
                                                         res.status(500).render('error', { error: 'Error updating opened count for learning resource' })
                                                     } else {
                                                         connection.query(
-                                                            'SELECT * FROM learningresources WHERE lr_id = ?',
-                                                            [resourceId],
+                                                            'SELECT * FROM learningresources WHERE lr_id = ? AND institution_id = ?',
+                                                            [resourceId, req.session.institution],
                                                             (error, selectResults) => {
                                                                 if (error) {
                                                                     console.error('Error fetching learning resource for PDF view:', error)
@@ -377,8 +376,8 @@ app.get('/remark/:lr_id', (req, res) => {
 
     if (res.locals.isLogedIn) {
         connection.query(
-            'SELECT rsctitle FROM learningresources WHERE lr_id = ?',
-            [lr_id],
+            'SELECT rsctitle FROM learningresources WHERE lr_id = ? AND institution_id = ?',
+            [lr_id, req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching learning resource for remark:', error)
@@ -404,8 +403,8 @@ app.post('/remark/:lr_id/:studentID', (req, res) => {
 
     if (res.locals.isLogedIn) {
         connection.query(
-            'SELECT totalremarks FROM learningresources WHERE lr_id = ?',
-            [lr_id],
+            'SELECT totalremarks FROM learningresources WHERE lr_id = ? AND institution_id = ?',
+            [lr_id, req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching totalremarks for learning resource:', error)
@@ -422,8 +421,8 @@ app.post('/remark/:lr_id/:studentID', (req, res) => {
                                 res.status(500).render('error', { error: 'Error updating totalremarks for learning resource' })
                             } else {
                                 connection.query(
-                                    'INSERT INTO remarks_table (lr_id, s_id, remark, isactive) VALUES (?, ?, ?, ?)',
-                                    [lr_id, studentID, userRemarks.remark, 'active'],
+                                    'INSERT INTO remarks_table (lr_id, s_id, remark, isactive, institution_id) VALUES (?, ?, ?, ?, ?)',
+                                    [lr_id, studentID, userRemarks.remark, 'active', req.session.institution],
                                     (error, results) => {
                                         if (error) {
                                             console.error('Error inserting remark:', error)
@@ -448,9 +447,9 @@ app.post('/remark/:lr_id/:studentID', (req, res) => {
 // Progress view
 app.get('/progress', (req, res) => {
     if (res.locals.isLogedIn) {
-        let sql = 'SELECT * FROM e_student WHERE s_id = ?'
+        let sql = 'SELECT * FROM e_student WHERE s_id = ? AND institution_id = ?'
         connection.query(
-            sql, [req.session.userID], (error, results) => {
+            sql, [req.session.userID, req.session.institution], (error, results) => {
                 if (error) {
                     console.error('Error fetching progress data:', error)
                     res.status(500).render('error', { error: 'Error fetching progress data' })
@@ -469,8 +468,8 @@ app.get('/progress', (req, res) => {
 app.get('/editMyProfile', (req, res) => {
     if (res.locals.isLogedIn) {
         connection.query(
-            'SELECT * FROM e_student WHERE s_id = ?',
-            [req.session.userID],
+            'SELECT * FROM e_student WHERE s_id = ? AND institution_id = ?',
+            [req.session.userID, req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching profile data for editing:', error)
@@ -690,7 +689,7 @@ app.post('/adminsignup', (req, res) => {
         confirmPassword: req.body.confirmPassword,
         pin: req.body.adminPin,
     }
-    if (admin.pin === adminAuthenticationPin) {
+    if (admin.pin === req.session.tutorpin) {
         if (admin.password === admin.confirmPassword) {
             connection.query(
                 'SELECT * FROM e_adminInfo WHERE email = ?',
@@ -804,68 +803,77 @@ app.post('/adminlogin', (req, res) => {
         password: req.body.password,
         pin: req.body.pin
     }
-
-    if (admin.pin === adminAuthenticationPin) {
-        // Check if user exists
-        connection.query(
-            'SELECT * FROM e_admininfo WHERE email = ?',
-            [admin.email],
-            (error, tutorresults) => {
-                if (error) {
-                    console.error('Error checking admin account:', error)
-                    res.status(500).send('Error checking admin account')
-                } else if (tutorresults.length > 0) {
-                    if (tutorresults[0].isactive === 'active') {
-                        // check if institution is active
-                        let sql = 'SELECT * FROM institution WHERE institution_id = ? AND isactive = ?'
-                        connection.query(sql, [tutorresults[0].institution_id, 'active'], (error, results) => {
-                            if (error) {
-                                console.error('Error checking if institution is active:', error)
-                                res.status(500).render('error', { error: 'Error checking if institution is active' })
-                            } else {
-                                if (results.length > 0) {
-                                    bcrypt.compare(admin.password, tutorresults[0].password, (error, passwordMatches) => {
-                                        if (error) {
-                                            console.error('Error comparing passwords:', error)
-                                            res.status(500).send('Error comparing passwords')
-                                        } else if (passwordMatches) {
-                                            req.session.userID = tutorresults[0].a_id
-                                            req.session.username = tutorresults[0].name.split(' ')[0]
-                                            req.session.usernamefull = tutorresults[0].name
-                                            req.session.adminPin = adminAuthenticationPin
-                                            req.session.institution = tutorresults[0].institution_id
-                                            res.redirect('/adminhome')
+    connection.query(
+        'SELECT * FROM e_admininfo WHERE email = ?',
+        [admin.email],
+        (error, tutorresults) => {
+            if (error) {
+                console.error('Error checking admin account:', error)
+                res.status(500).send('Error checking admin account')
+            } else if (tutorresults.length > 0) {
+                if (tutorresults[0].isactive === 'active') {
+                    // check if institution is active
+                    let sql = 'SELECT * FROM institution WHERE institution_id = ? AND isactive = ?'
+                    connection.query(sql, [tutorresults[0].institution_id, 'active'], (error, results) => {
+                        if (error) {
+                            console.error('Error checking if institution is active:', error)
+                            res.status(500).render('error', { error: 'Error checking if institution is active' })
+                        } else {
+                            if (results.length > 0) {
+                                connection.query(
+                                    'SELECT superadminpin, adminpin FROM institution WHERE institution_id = ?', 
+                                    [tutorresults[0].institution_id],
+                                    (error, results) => {
+                                    if (error) {
+                                        console.error('Error fetching institutions:', error)
+                                    } else {
+                                        req.session.tutorpin = results[0].adminpin
+                                        req.session.managerpin = results[0].superadminpin
+                                        if (admin.pin === req.session.tutorpin) {
+                                            bcrypt.compare(admin.password, tutorresults[0].password, (error, passwordMatches) => {
+                                                if (error) {
+                                                    console.error('Error comparing passwords:', error)
+                                                    res.status(500).send('Error comparing passwords')
+                                                } else if (passwordMatches) {
+                                                    req.session.userID = tutorresults[0].a_id
+                                                    req.session.username = tutorresults[0].name.split(' ')[0]
+                                                    req.session.usernamefull = tutorresults[0].name
+                                                    req.session.adminPin = req.session.tutorpin
+                                                    req.session.institution = tutorresults[0].institution_id
+                                                    res.redirect('/adminhome')
+                                                } else {
+                                                    let message = 'Incorrect password!'
+                                                    admin.password = ''
+                                                    console.error('Incorrect password. Rendering adminlogin page with error message')
+                                                    res.render('adminlogin', { error: true, message: message, admin: admin })
+                                                }
+                                            })
                                         } else {
-                                            let message = 'Incorrect password!'
-                                            admin.password = ''
-                                            console.error('Incorrect password. Rendering adminlogin page with error message')
+                                            let message = 'Incorrect Admin pin'
+                                            console.error('Incorrect Admin pin. Rendering adminlogin page with error message')
                                             res.render('adminlogin', { error: true, message: message, admin: admin })
                                         }
-                                    })
-                                } else {
-                                    let message = 'Your school is inactive! please contact your adminstrator'
-                                    console.error('Inactive institution. Rendering adminlogin page with error message')
-                                    res.render('adminlogin', { error: true, message: message, admin: admin })
-                                }
+                                    }
+                                })
+                            } else {
+                                let message = 'Your school is inactive! please contact your adminstrator'
+                                console.error('Inactive institution. Rendering adminlogin page with error message')
+                                res.render('adminlogin', { error: true, message: message, admin: admin })
                             }
-                        })
-                    } else {
-                        let message = 'Your Account is inactive. Call manager to continue'
-                        console.error('Inactive admin account. Rendering adminlogin page with error message')
-                        res.render('adminlogin', { error: true, message: message, admin: admin })
-                    }
+                        }
+                    })
                 } else {
-                    let message = 'You do not have an account with that email! Please create one'
-                    console.error('Admin account not found. Rendering adminlogin page with error message')
+                    let message = 'Your Account is inactive. Call manager to continue'
+                    console.error('Inactive admin account. Rendering adminlogin page with error message')
                     res.render('adminlogin', { error: true, message: message, admin: admin })
                 }
+            } else {
+                let message = 'You do not have an account with that email! Please create one'
+                console.error('Admin account not found. Rendering adminlogin page with error message')
+                res.render('adminlogin', { error: true, message: message, admin: admin })
             }
-        )
-    } else {
-        let message = 'Incorrect Admin pin'
-        console.error('Incorrect Admin pin. Rendering adminlogin page with error message')
-        res.render('adminlogin', { error: true, message: message, admin: admin })
-    }
+        }
+    )
 })
 
 // Render admin home page
@@ -882,8 +890,8 @@ app.get('/adminhome', (req, res) => {
 app.get('/viewstudent', (req, res) => {
     if (res.locals.sessionpin) {
         connection.query(
-            'SELECT * FROM e_student',
-            [],
+            'SELECT * FROM e_student WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching student data:', error)
@@ -903,8 +911,8 @@ app.get('/viewstudent', (req, res) => {
 app.get('/viewresource', (req, res) => {
     if (res.locals.sessionpin) {
         connection.query(
-            'SELECT learningresources.*, e_admininfo.name FROM learningresources LEFT JOIN e_admininfo ON learningresources.a_id = e_admininfo.a_id WHERE learningresources.isactive = ?',
-            ['active'],
+            'SELECT learningresources.*, e_admininfo.name FROM learningresources LEFT JOIN e_admininfo ON learningresources.a_id = e_admininfo.a_id WHERE learningresources.isactive = ? AND learningresources.institution_id = ?',
+            ['active', req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching resource data:', error)
@@ -929,8 +937,8 @@ app.get('/addresource', (req, res) => {
     }
     if (res.locals.sessionpin) {
         connection.query(
-            'SELECT * FROM learningresources',
-            [],
+            'SELECT * FROM learningresources WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching resource data:', error)
@@ -956,8 +964,8 @@ app.post('/addresource', upload2.single('route'), (req, res) => {
     }
 
     connection.query(
-        'SELECT rsctitle FROM learningresources WHERE rsctitle = ?',
-        [resourceInfo.title],
+        'SELECT rsctitle FROM learningresources WHERE rsctitle = ? AND institution_id = ?',
+        [resourceInfo.title, req.session.institution],
         (error, titleResults) => {
             if (error) {
                 console.error('Error checking existing resource titles:', error)
@@ -969,8 +977,8 @@ app.post('/addresource', upload2.single('route'), (req, res) => {
                 res.render('addresource', { error: true, message: message, resourceInfo: resourceInfo })
             } else {
                 connection.query(
-                    'SELECT route FROM learningresources WHERE route = ?',
-                    [resourceInfo.filename],
+                    'SELECT route FROM learningresources WHERE route = ? AND institution_id = ?',
+                    [resourceInfo.filename, req.session.institution],
                     (error, routeResults) => {
                         if (error) {
                             console.error('Error checking existing file names:', error)
@@ -982,13 +990,14 @@ app.post('/addresource', upload2.single('route'), (req, res) => {
                             res.render('addresource', { error: true, message: message, resourceInfo: resourceInfo })
                         } else {
                             connection.query(
-                                'INSERT INTO learningresources (rsctitle, learndefinition, route, a_id, isactive) VALUES (?, ?, ?, ?, ?)',
+                                'INSERT INTO learningresources (rsctitle, learndefinition, route, a_id, isactive, institution_id) VALUES (?, ?, ?, ?, ?, ?)',
                                 [
                                     resourceInfo.title,
                                     resourceInfo.definition,
                                     resourceInfo.filename,
                                     req.session.userID,
-                                    'active'
+                                    'active',
+                                    req.session.institution
                                 ],
                                 (error, insertResults) => {
                                     if (error) {
@@ -1012,8 +1021,8 @@ app.get('/editresource/:lr_id', (req, res) => {
     let lr_id = req.params.lr_id
     if (res.locals.sessionpin) {
         connection.query(
-            'SELECT * FROM learningresources WHERE lr_id = ?',
-            [lr_id],
+            'SELECT * FROM learningresources WHERE lr_id = ? AND institution_id = ?',
+            [lr_id, req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching resource data for editing:', error)
@@ -1110,8 +1119,8 @@ app.post('/activate', (req, res) => {
 app.get('/viewremark', (req, res) => {
     if (res.locals.sessionpin) {
         connection.query(
-            'SELECT rt.*, e.name, lr.rsctitle FROM remarks_table AS rt JOIN e_student AS e ON rt.s_id = e.s_id JOIN learningresources AS lr ON rt.lr_id = lr.lr_id WHERE rt.isactive = ?',
-            ['active'],
+            'SELECT rt.*, e.name, lr.rsctitle FROM remarks_table AS rt JOIN e_student AS e ON rt.s_id = e.s_id JOIN learningresources AS lr ON rt.lr_id = lr.lr_id WHERE rt.isactive = ? AND rt.institution_id = ?',
+            ['active', req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching remarks data:', error)
@@ -1163,8 +1172,8 @@ app.post('/superadminlogin', (req, res) => {
     const superadmin = {
         superadminpin: req.body.superadminpin
     }
-    if (superadmin.superadminpin === superAdminAuthPin) {
-        req.session.superadminPin = adminAuthenticationPin
+    if (superadmin.superadminpin === req.session.managerpin) {
+        req.session.superadminPin = req.session.tutorpin
         res.redirect('/manager')
     } else {
         let message = 'Wrong Superadmin Pin'
@@ -1186,8 +1195,8 @@ app.get('/manager', (req, res) => {
 app.get('/studentmanager', (req, res) => {
     if (res.locals.isLogedIn && res.locals.sessionpin && res.locals.superadminsession) {
         connection.query(
-            'SELECT * FROM e_student',
-            [],
+            'SELECT * FROM e_student WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 if (error) {
                     console.error('Error fetching student data:', error)
@@ -1241,8 +1250,8 @@ app.post('/deactivatestudent/:s_id', (req, res) => {
 app.get('/adminmanager', (req, res) => {
     if (res.locals.isLogedIn && res.locals.sessionpin && res.locals.superadminsession) {
         connection.query(
-            'SELECT * FROM e_admininfo',
-            [],
+            'SELECT * FROM e_admininfo WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 res.render('adminmanager', {error: false ,results: results})
             }
@@ -1260,8 +1269,8 @@ app.post('/activateadmin/:a_id', (req, res) => {
     let sessionLiveAdmin = req.session.userID
     if (parseInt(adminPin, 10) === sessionLiveAdmin) {
         connection.query(
-            'SELECT * FROM e_admininfo',
-            [],
+            'SELECT * FROM e_admininfo WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 let message = 'You cannot activate yourself'
                 res.render('adminmanager', { error: true, message: message, results: results })
@@ -1289,8 +1298,8 @@ app.post('/deactivateadmin/:a_id', (req, res) => {
     let sessionLiveAdmin = req.session.userID
     if (parseInt(adminPin, 10) === sessionLiveAdmin) {
         connection.query(
-            'SELECT * FROM e_admininfo',
-            [],
+            'SELECT * FROM e_admininfo WHERE institution_id = ?',
+            [req.session.institution],
             (error, results) => {
                 let message = 'You cannot deactivate yourself'
                 res.render('adminmanager', { error: true, message: message, results: results })
@@ -1310,6 +1319,109 @@ app.post('/deactivateadmin/:a_id', (req, res) => {
             }
         )
     }
+})
+
+app.get('/create-institution', (req, res) => {
+    const institution = {
+        name: '',
+        i_id: '',
+        adminpin: '',
+        superadminpin: ''
+    }
+    res.render('create-institution', { error: false, institution: institution })
+})
+
+app.post('/create-institution', (req, res) => {
+    const institution = {
+        name: req.body.name,
+        adminpin: req.body.adminpin,
+        superadminpin: req.body.superadminpin,
+        email: req.body.email
+    }
+    // check if institution is existing
+    let sql = 'SELECT * FROM institution WHERE email = ?'
+    connection.query(sql, [institution.email], (error, results) => {
+        if (error) {
+            console.error('Error checking if institution exists:', error)
+            res.status(500).render('error', { error: 'Error checking if institution exists' })
+        } else {  
+            if (results.length > 0) {
+                let message = 'There is already an institution with that email'
+                institution.email = ''
+                console.error('Duplicate institution email. Rendering create-institution page with error message')
+                res.render('create-institution', { error: true,  message: message, institution: institution })
+            } else {
+                let sql = 'INSERT INTO institution (name, adminpin, superadminpin, isactive, email) VALUES (?, ?, ?, ?, ?)'
+                connection.query(
+                    sql,
+                    [
+                        institution.name,
+                        institution.adminpin,
+                        institution.superadminpin,
+                        'active',
+                        institution.email
+                    ],
+                    (error, results) => {
+                        if (error) {
+                            console.error('Error creating institution:', error)
+                            res.status(500).send('Error creating institution')
+                        } else {
+                            let sql = 'SELECT * FROM institution WHERE email = ?'
+                            connection.query(
+                                sql,[institution.email],
+                                (error, institution) => {
+                                    req.session.viewMyInstitution = institution[0].institution_id
+                                    res.redirect('/my-institution')
+                                }
+                            )
+                        }
+                    }
+                )
+            }
+        }
+    })
+})
+
+// my-institution
+app.get('/my-institution', (req, res) => {
+    if (req.session.viewMyInstitution > 0) {
+        let sql = 'SELECT * FROM institution WHERE institution_id = ?'
+        connection.query(
+            sql,
+            [req.session.viewMyInstitution],
+            (error, institution) => {
+                res.render('my-institution', { institution: institution })
+            }
+        )
+    } else {
+        res.redirect('/create-institution')
+    }
+})
+
+app.get('/login-institution', (req, res) => {
+    const institution = {
+        email: '',
+        adminpin: '',
+        superadminpin: ''
+    }
+    res.render('login-institution', { error: false, institution: institution })
+})
+
+app.post('/login-institution', (req, res) => {
+    const institution = {
+        email: req.body.email,
+        adminpin: req.body.adminpin,
+        superadmin: req.body.superadminpin
+    }
+    let sql = 'SELECT * FROM institution WHERE email = ?'
+    connection.query(
+        sql,
+        [institution.email],
+        (error, institution) => {
+            req.session.viewMyInstitution = institution[0].institution_id
+            res.redirect('/my-institution')
+        }
+    )
 })
 
 app.get('/terms', (req, res) => {

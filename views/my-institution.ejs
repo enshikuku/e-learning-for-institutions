@@ -1,0 +1,22 @@
+<%- include('partials/header')%>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main class="myinstitution">
+        <h1><%= institution[0].name  %></h1>
+        <section class="success">
+            <section>
+                <p>Your institution has been successfully added to our database.</p>
+            </section>
+            <section>
+                <p><strong><%= institution[0].institution_id %></strong>  is your institution code. Share this code with your members, as they will need it to create accounts and access institutional resources.</p>
+            </section>
+            <section>
+                <p><strong><%= institution[0].adminpin %></strong> is your admin PIN. Teachers or staff members should use this PIN to access the admin page and enjoy the administrative features. Do not share this PIN with students.</p>
+            </section>
+            <section>
+                <p><strong><%= institution[0].superadminpin %></strong> is your manager's PIN. You will need this PIN to access the manager's hub, where you can manage students and tutors. Do not share this PIN either.</p>
+            </section>
+        </section>
+    </main>
+    <%- include('partials/footermain') %>
+<%- include('partials/footer') %>

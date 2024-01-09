@@ -1,0 +1,22 @@
+<%- include('partials/header')%>
+    <%- include('partials/preloader')%>
+    <%- include('partials/nav') %>
+    <main id="adminsignup">
+        <form action="/create-institution" method="post">
+            <h1>Add Institution</h1>
+            <% if(error) {%>
+                <p class="error"><%= message %></p>
+            <% } %>
+            <label for="name">Full Institution Name:</label>
+            <input type="text" name="name" id="name" value="<%= institution.name %>" required>
+            <label for="name">Institution Email:</label>
+            <input type="email" name="email" id="email" value="<%= institution.email %>" required>
+            <label for="superadminpin">Manager's Password:</label>
+            <input type="password" name="superadminpin" id="superadminpin" value="<%= institution.superadminpin %>" required>
+            <label for="adminpin">Tutor's Password:</label>
+            <input type="password" name="adminpin" id="adminpin" value="<%= institution.adminpin %>" required>
+            <input type="submit" value="Sign Up">
+        </form>
+    </main>
+
+<%- include('partials/footer')%>
