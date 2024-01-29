@@ -697,7 +697,7 @@ app.post('/adminsignup', (req, res) => {
             if (admin.pin === results[0].adminpin) {
                 if (admin.password === admin.confirmPassword) {
                     connection.query(
-                        'SELECT * FROM e_adminInfo WHERE email = ?',
+                        'SELECT * FROM e_admininfo WHERE email = ?',
                         [admin.email],
                         (error, results) => {
                             if (error) {
@@ -732,7 +732,7 @@ app.post('/adminsignup', (req, res) => {
                                                                 res.status(500).send('Error hashing password')
                                                             } else {
                                                                 connection.query(
-                                                                    'INSERT INTO e_adminInfo (name, email, password, isactive, institution_id) VALUES (?,?,?,?,?)',
+                                                                    'INSERT INTO e_admininfo (name, email, password, isactive, institution_id) VALUES (?,?,?,?,?)',
                                                                     [
                                                                         admin.name,
                                                                         admin.email,
